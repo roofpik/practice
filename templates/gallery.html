@@ -1,0 +1,18 @@
+<style>
+#imagelightbox {
+    position: fixed;
+    z-index: 9999;
+    -ms-touch-action: none;
+    touch-action: none;
+}
+</style>
+<!-- <div id="imagelightbox">
+    <img src="https://farm1.static.flickr.com/736/31754439461_5f8dfd796b_b.jpg" />
+    <img src="https://farm1.static.flickr.com/607/31746390721_dfdfe1a2c6_b.jpg" />
+    <img src="https://farm1.static.flickr.com/750/31721567322_4639ba3d74_b.jpg" />
+</div> -->
+<ul class="demo_activity" ng-repeat="image in images">
+    <li ng-show="{{image.display}}">
+        <a href="{{image.src}}" data-imagelightbox="a"><img ng-src="{{image.thumb}}" alt="{{image.alt}}"></a>
+    </li>
+</ul>

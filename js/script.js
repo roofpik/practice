@@ -16,9 +16,47 @@
 	        controller: 'aboutController'
 	    })
 
+	    .when('/gallery', {
+	        templateUrl: 'templates/gallery.html',
+	        controller: 'galleryController'
+	    })
+
 	});
 
 	// create the controller and inject Angular's $scope
+	scotchApp.controller('galleryController', function($scope, $timeout) {
+
+	    $scope.images = [{
+	        thumb: "https://farm1.static.flickr.com/607/31746390721_dfdfe1a2c6_b.jpg",
+	        src: "https://farm1.static.flickr.com/736/31754439461_5f8dfd796b_b.jpg",
+	        display: true,
+	        alt: "Just another sunset in Tanzania"
+	    }, {
+	        thumb: "https://farm1.static.flickr.com/750/31721567322_4639ba3d74_b.jpg",
+	        src: "https://farm1.static.flickr.com/607/31746390721_dfdfe1a2c6_b.jpg",
+	        display: false
+	    }, {
+	        thumb: "https://farm1.static.flickr.com/736/31754439461_5f8dfd796b_b.jpg",
+	        src: "https://farm1.static.flickr.com/750/31721567322_4639ba3d74_b.jpg",
+	        display: false
+	    }]
+
+	    $timeout(function() {
+	        $('a[data-imagelightbox="a"]').imageLightbox({
+	            activity: true,
+	            arrows: true,
+	            button: true,
+	            caption: true,
+	            navigation: false,
+	            overlay: true
+	        });
+
+	    }, 500)
+
+
+	});
+
+
 	scotchApp.controller('mainController', function($scope) {
 	    // create a message to display in our view
 	    console.log('main controller');
@@ -37,16 +75,16 @@
 	    $scope.student.name = 'rahul';
 	    $scope.studentResponse('value');
 	    console.log($scope.message);
-	    $scope.addressFn = function(value){
-	    	console.log(value);
+	    $scope.addressFn = function(value) {
+	        console.log(value);
 	    }
 
 	});
 
 	scotchApp.controller('addressController', function($scope) {
-		console.log($scope.studentName);
-		$scope.stuAddress = 'Gurgaon';
-		$scope.addressResponse($scope.stuAddress);
+	    console.log($scope.studentName);
+	    $scope.stuAddress = 'Gurgaon';
+	    $scope.addressResponse($scope.stuAddress);
 	});
 
 
@@ -60,7 +98,7 @@
 	        message: '@msg'
 	    };
 	    directive.compile = function(element, attributes) {
-	    	console.log('compile directive');
+	        console.log('compile directive');
 	    };
 
 	    directive.controller = 'studentController';
@@ -71,18 +109,18 @@
 
 
 
-	scotchApp.directive('address', function(){
-		var directive = {};
-		directive.restrict = 'E';
-		directive.replace = true;
-		directive.templateUrl = 'templates/partials/address.html';
-		directive.scope = {
+	scotchApp.directive('address', function() {
+	    var directive = {};
+	    directive.restrict = 'E';
+	    directive.replace = true;
+	    directive.templateUrl = 'templates/partials/address.html';
+	    directive.scope = {
 	        addressResponse: "=",
 	        studentName: '@stuName'
 	    };
 
-	     directive.controller = 'addressController';
-	     return directive;
+	    directive.controller = 'addressController';
+	    return directive;
 
 	})
 
