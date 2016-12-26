@@ -29,8 +29,8 @@
 	    $scope.images = [{
 	        thumb: "https://farm1.static.flickr.com/607/31746390721_dfdfe1a2c6_b.jpg",
 	        src: "https://farm1.static.flickr.com/736/31754439461_5f8dfd796b_b.jpg",
-	        display: true,
-	        alt: "Just another sunset in Tanzania"
+	        display: false,
+	        caption: "Just another sunset in Tanzania"
 	    }, {
 	        thumb: "https://farm1.static.flickr.com/750/31721567322_4639ba3d74_b.jpg",
 	        src: "https://farm1.static.flickr.com/607/31746390721_dfdfe1a2c6_b.jpg",
@@ -39,10 +39,10 @@
 	        thumb: "https://farm1.static.flickr.com/736/31754439461_5f8dfd796b_b.jpg",
 	        src: "https://farm1.static.flickr.com/750/31721567322_4639ba3d74_b.jpg",
 	        display: false
-	    }]
+	    }];
 
 	    $timeout(function() {
-	        $('a[data-imagelightbox="a"]').imageLightbox({
+	        var gallery = $('a[data-imagelightbox="a"]').imageLightbox({
 	            activity: true,
 	            arrows: true,
 	            button: true,
@@ -51,38 +51,64 @@
 	            overlay: true
 	        });
 
-	    }, 500)
+	        $('.trigger_gallery').on('click', function() {
+	            gallery.startImageLightbox();
+	        });
+
+	    }, 500);
 
 
 	});
 
 
-	scotchApp.controller('mainController', function($scope) {
+	scotchApp.controller('mainController', function($scope, $timeout, $rootScope) {
 	    // create a message to display in our view
-	    console.log('main controller');
+	    //console.log('main controller');
 	    $scope.message = 'Everyone come and see how good I look!';
 	    $scope.test = 'test value';
 	    $scope.responseFn = function(val) {
-	        console.log(val);
+	        //console.log(val);
 	    }
+
+	    $timeout(function(){
+	    	$scope.projImages = [{
+	        thumb: "https://farm1.static.flickr.com/607/31746390721_dfdfe1a2c6_b.jpg",
+	        src: "https://farm1.static.flickr.com/736/31754439461_5f8dfd796b_b.jpg",
+	        display: false,
+	        caption: "Just another sunset in Tanzania"
+	    }, {
+	        thumb: "https://farm1.static.flickr.com/750/31721567322_4639ba3d74_b.jpg",
+	        src: "https://farm1.static.flickr.com/607/31746390721_dfdfe1a2c6_b.jpg",
+	        display: false
+	    }, {
+	        thumb: "https://farm1.static.flickr.com/736/31754439461_5f8dfd796b_b.jpg",
+	        src: "https://farm1.static.flickr.com/750/31721567322_4639ba3d74_b.jpg",
+	        display: false
+	    }];
+	    
+      	$rootScope.$broadcast('initGallery',$scope.projImages);
+
+
+	    }, 2000)
+	   
 	});
 
 
 
 	scotchApp.controller('studentController', function($scope) {
-	    console.log('student controller');
+	    // //console.log('student controller');
 	    $scope.student = {};
 	    $scope.student.name = 'rahul';
 	    $scope.studentResponse('value');
-	    console.log($scope.message);
+	    //console.log($scope.message);
 	    $scope.addressFn = function(value) {
-	        console.log(value);
+	        //console.log(value);
 	    }
 
 	});
 
 	scotchApp.controller('addressController', function($scope) {
-	    console.log($scope.studentName);
+	    //console.log($scope.studentName);
 	    $scope.stuAddress = 'Gurgaon';
 	    $scope.addressResponse($scope.stuAddress);
 	});
@@ -98,7 +124,7 @@
 	        message: '@msg'
 	    };
 	    directive.compile = function(element, attributes) {
-	        console.log('compile directive');
+	        //console.log('compile directive');
 	    };
 
 	    directive.controller = 'studentController';
@@ -122,7 +148,11 @@
 	    directive.controller = 'addressController';
 	    return directive;
 
-	})
+	});
+
+
+
+
 
 
 
